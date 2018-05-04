@@ -4,8 +4,8 @@
 \documentclass{physics_article_B}
 \title{Mechanical Vibrations of Droplets in Fluidic Systems}
 \mytitle{Mechanical Vibrations of Droplets in Fluidic Systems}
-\myname{Oliver Gordon \& Dominic Coy}
-\studentid{4224942 \& 4227789}
+\myname{Dominic Coy \& Oliver Gordon}
+\studentid{4227789 \& 4224942}
 \date{Due Date: 1 June 2018}
 
 \begin{document}
@@ -60,9 +60,9 @@
 % ----------------------
 \section{Fluid Circuit\label{sect_loop}}
 
-To interrogate droplets in a fully automated fashion, a flow system was developed to form droplets and transport them in a suspension of oil. This is demonstrated in Figure \ref{fig:basic}. A 2mm tunnel was created inside a PDMA/glass slide, small capillary tubes attached, and sealed with flowable silicon. A microfluidics motor was used to transport mineral oil from a main reservoir through the slide. A 1mm hole was also created on the top side of the slide, and used to place transport the fluid in question into the slide when a motorised syringe was pumped. A t-junction was also placed in the loop to allow for easy bleeding of air. After being interrogated, droplets would be transported back to the reservoir at which point they could be removed. This is owing to the fact that the droplets are of different density to the mineral oil, so would either float on the surface or sink. To prevent these droplets from returning into the flow system, the return and collection tubes were placed at different heights on opposite sides of the reservoir. 
+To interrogate liquids of interest, a flow system was developed to form droplets and transport them in a suspension of oil. This is demonstrated in Figure \ref{fig:basic}. A 2 mm tunnel was created inside a PDMS sheet and attached to a glass slide. Small capillary tubes were then attached to either end, and sealed with flowable silicon. These capillary tubes were then connected to wider 3 mm tubes for general transportation. A 1 mm hole was also created on the top side of the slide, and used to inject a fluid of interest with a motorised syringe pump. A perspex slide was also created, which had the advantage of being quicker to produce, less fragile, and less prone to internal leaking.\\
 
-
+To move droplets through the slide, mineral oil was used as a carrier medium to suspend the droplets in. A microfluidics motor was used to transport oil from a central reservoir and around the loop. A t-junction was also placed at the return side of the loop to allow for easy bleeding of air. After being interrogated in the slide, droplets were transported to the reservoir. Here, they could be easily removed by hand, as the droplets were of different density to the mineral oil, so would either sink or float. To prevent these droplets from returning into the flow system, the return and collection tubes were placed at different heights on opposite sides of the reservoir. 
 \begin{figure}[H]
 \centering
 \hspace*{-0.9cm}\includegraphics[scale=0.8]{Figures/Fluid.eps}
@@ -74,7 +74,18 @@ To interrogate droplets in a fully automated fashion, a flow system was develope
 A user-friendly toolbox was developed in MATLAB to allow these steps to be automated.
     
     \subsection{Motor}
-    Code was written to automatically interface with the pump over a COM port. This also has a significant delay, reducing the throughput of droplets.\\
+    To move droplets through the flow system, a microfluidics motor was attached to the system. To reduce stress on the capillary tubes of the slide, the motor was attached on the "in" side, so oil is not being pulled against the external tubes, potentially breaking them (?).\\
+    
+    To allow the 2-4 V motor to be controlled as part of the computer vision system described below, it was driven by a DAQ card. However, this card alone was not sufficient. First and foremost, it lacked the circuitry to output current, making it unable to turn the motor at any voltage. Furthermore, fine control of the motor was desired beyond that of the 0.1 V resolution of the DAQ card. A current boosting circuit, shown in Figure \ref{fig:MotorCircuit}, was therefore produced to output 0-4 V depending on the full 0-10 V output range of the DAQ card. Resistances were calculated such that the 0-10V input from the DAQ card would place between 0-4V across the motor, improving driving resolution. These resistances were also chosen to provide good all round heat dissipation. However, a heatsink was attached to the 12 ohm resistor to prevent overheating. Furthermore, a current limited power supply was also used to prevent overvolting the motor. 
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics{Figures/MotorCircuit.eps}
+        \caption{Caption}
+        \label{fig:MotorCircuit}
+    \end{figure}
+    
+     was written to automatically interface with the pump over a COM port. This also has a significant delay, reducing the throughput of droplets.\\
     
     Motor also needed to be controlled, as...
     
@@ -88,48 +99,41 @@ A user-friendly toolbox was developed in MATLAB to allow these steps to be autom
         \subsubsection{Acquiring Data}
         In order to allow droplets to be analysed in real time, a computer vision control system was developed. A Logitech C920 camera was chosen for its high image quality, high resolution, and wide field of view. \\
         
-        Because droplets are not static, strict requirements are placed on the efficiency of calculations. Further, as MATLAB is an interpreted language and lacks hardware acceleration, webcam acquisition operates at very low framerates, making tracking moving droplets in real time difficult. This was overcome by modifying Hebicam\cite{HebiCam}, which was originally created for streaming CCTV footage, and is a MATLAB wrapper for the more efficient openCV. After adapting this package for use with USB webcams, 1080p video could be acquired at 30FPS with processor overhead to perform calculations, as opposed to <6 with none. Furthermore, data was acquired in grayscale (as opposed to RGB), further increasing capture efficiency and reducing the size of stored data. 
+        Because droplets are not static, strict requirements are placed on the efficiency of calculations. Furthermore, as MATLAB is an interpreted language and lacks hardware acceleration, webcam acquisition operates at very low framerates, making tracking moving droplets in real time difficult. This was overcome by modifying Hebicam\cite{HebiCam}, which was originally created for streaming CCTV footage, and is a MATLAB wrapper for the more efficient openCV. After adapting this package for use with USB webcams, 1080p video could be acquired at 30FPS with processor overhead to perform calculations, as opposed to $\<$6 with none. Furthermore, data was acquired in grayscale (as opposed to RGB), further increasing capture efficiency and reducing the size of stored data. 
+        
+        Several materials were included in the slide
+
+        \begin{figure}[H]
+        \centering
+        \hspace*{-0.9cm}\includegraphics[scale=0.8]{Figures/Control.eps}
+        \captionsetup{justification=centering}
+        \caption{Words.} 	
+        \label{fig:basic}
+        \end{figure} 
         
         \subsubsection{Calibration}
         
-        To ensure that droplets were calculated accurately, the webcam had to be calibrated. 20 images of a 10x11, 0.20mm checkerboard pattern were taken at different positions in similar positions to those used during our experiment, as demonstrated in Figure \ref{fig:calib:pos}. An algorithm implemented in MATLAB\cite{CameraCalib} was then used to calculate various extrinsic properties of the camera, such as the optical centre, distortions, and focal lengths in x and y. As shown in Figure \ref{fig:calib:error}, the extrinsics of the camera were calculated to a sub-pixel accuracy of 0.41 pixels, indicating a high quality calibration which will produce errors of less than the precision of the droplet finding algorithm discussed later. \\
+        To ensure that droplets were calculated accurately, the webcam had to be calibrated. 20 images of a 10 x 11, 0.20 mm checkerboard pattern were taken at different positions in similar positions to those used during our experiment, as demonstrated in Figure \ref{fig:calib:pos}. An algorithm implemented in MATLAB\cite{CameraCalib} was then used to calculate various extrinsic properties of the camera, such as the optical centre, distortions, and focal lengths in x and y. 
         
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[b]{0.4\textwidth}
-                \includegraphics[width=\textwidth]{Figures/CameraExtrinsics.eps}
-                \caption{Background}
+                \includegraphics[]{Figures/CameraExtrinsics.eps}
                 \label{fig:calib:pos}
-            \end{subfigure}
-            \begin{subfigure}[b]{0.4\textwidth}
-                \includegraphics[width=\textwidth]{Figures/CameraError.eps}
-                \caption{Foreground}
-                \label{fig:calib:error}
-            \end{subfigure}
             \caption{Figure }\label{fig:calib}
         \end{figure}
         
-        To calculate the size of an object and because a webcam has no depth perception, the checkerboard had to be placed in plane with the droplets. Because the slide was of a finite size, a limitation was placed on the size of the checkerboard. Larger checkers had a lower percentage error from imperfect focusing, yet less of them could be placed on a slide. To determine the optimum size for our purposes, we calibrated the camera with checkers between 1.50 and 5.00mm in size. \\
+        To calculate the size of an object and because a webcam has no depth perception, the checkerboard had to be placed in plane with the droplets. Because the slide was of a finite size, a limitation was placed on the size of the checkerboard. Larger checkers had a lower percentage error from imperfect focusing, yet less of them could be placed on a slide. To determine the optimum size for our purposes, we calibrated the camera with checkers between 1.50 and 5.00 mm in size. \\
         
-        To determine the optimum checker size, photos containing the checkerboard and circles of radius 0.10 to 1.00mm were taken. A simple circle finding algorithm was then used to find a bounding box around each circle. After correcting the bounding box for fish-eye in the lens, the height and width, $\Delta x$ and $\Delta y$ respectively, of the bounding box was converted from pixels to mm. The radius, $r$, of each circle was then computed with simple trigonometry:
+        To determine the optimum checker size, photos containing the checkerboard and circles of radius 0.10 to 1.00 mm were taken. A simple circle finding algorithm was then used to find a bounding box around each circle. After correcting the bounding box for fish-eye in the lens, the height and width, $\Delta x$ and $\Delta y$ respectively, of the bounding box was converted from pixels to mm. The radius, $r$, of each circle was then computed with simple trigonometry:
         
         \begin{equation}\label{eq:radii}
             r = \sqrt{\Big(\frac{\Delta x}{2}\Big)^2 + \Big(\frac{\Delta y}{2}\Big)^2}
         \end{equation}
         
-        \vspace{3pt} It was found that a 10x11, 0.20mm checkerboard gave the lowest error of 0.03mm. This is shown in Figure \ref{fig:calibsize}. 
-        
-        \begin{figure}[H]
-            \centering
-            \includegraphics{Figures/CameraCalib.eps}
-            \caption{Caption}
-            \label{fig:calibsize}
-        \end{figure}
-        
-        From here, it can clearly be seen that the algorithm works as intended (more words)
+        \vspace{3pt} 
         
         \subsubsection{Observing}
-        To track droplets, a background photograph was first taken with oil flowing but no droplet present. A small 3mm long window along the channel was then defined and continuously monitored. After each frame was captured, this window was subtracted from the corresponding background region, and multiplied by the arbitrarily selected log(6) to act as a gain (thereby increasing contrast). When a droplet was present in the window, this resulted in bright regions where the two images were very different. Once an arbitrary threshold of bright pixels was reached, the droplet was confirmed as being in the window. This algorithm is demonstrated in Figure \ref{fig:detector}. Although this logical test based on bright pixel number is sensitive to noise, it was chosen over an object finder as calculations had to be performed in under 1/30 of a second, as otherwise the droplet could pass the window and fail to be detected, causing the entire system to fail. This noise means that the carrier fluid must be single coloured and free of impurities. \\
+        To track droplets, a background photograph was first taken with oil flowing but no droplet present. A small 3 mm long window along the channel was then defined and continuously monitored. After each frame was captured, this window was subtracted from the corresponding background region, and multiplied by the arbitrarily selected log(6) to act as a gain (thereby increasing contrast). When a droplet was present in the window, this resulted in bright regions where the two images were very different. Once an arbitrary threshold of bright pixels was reached, the droplet was confirmed as being in the window. This algorithm is demonstrated in Figure \ref{fig:detector}. Although this logical test based on bright pixel number is sensitive to noise, it was chosen over an object finder as calculations had to be performed in under 1/30 of a second, as otherwise the droplet could pass the window and fail to be detected, causing the entire system to fail. This noise means that the carrier fluid must be single coloured and free of impurities. \\
         
         \begin{figure}[H]
             \centering
@@ -206,11 +210,11 @@ A user-friendly toolbox was developed in MATLAB to allow these steps to be autom
             \caption{Figure }\label{fig:size}
         \end{figure}
         
-        There are a few drawbacks to this algorithm. For one, it is highly sensitive to noise, meaning that if the oil is cloudy then it will fail. The top-hat filter is also semi-manual, and must be tweaked for different droplet colours/transparencies. It also struggles with droplets with a radius below 0.3mm. Finally, it also relies on our assumption that the droplets are perfectly spherical, which is not completely true.\\
+        There are a few drawbacks to this algorithm. For one, it is highly sensitive to noise, meaning that if the oil is cloudy then it will fail. The top-hat filter is also semi-manual, and must be tweaked for different droplet colours/transparencies. It also struggles with droplets with a radius below 0.3 mm. Finally, it also relies on our assumption that the droplets are perfectly spherical, which is not completely true.\\
         
         The error produced by this algorithm was also considered. As we will discuss later, determination of droplet radius only requires knowledge of the width of a bounding box drawn around the sphere. As such, the diameter of 20 droplets of approximately fixed size was determined both by hand and by algorithm to the nearest pixel. 100\% of the droplets were detected by the algorithm to within 4 pixels in diameter. Given that the diameter of the 2mm thick channel corresponded to approximately 80 pixels, it can be estimated that the boundary of a droplet can be calculated to within 5\% error. \\
         
-        This error is largely due to the pixel-level precision and small number of pixels taken up by the droplet. As the droplets produced for the experiment were typically 25 pixels in radius, they only took up 2000 of the 2073600 pixels in a 1920x1080 image. If the camera had a lower focal length it could be positioned far closer to the droplet, allowing droplets to take up more than 0.1\% of the pixels of the image. A higher resolution camera would also increase the accuracy of boundary detection. \\
+        This error is largely due to the pixel-level precision and small number of pixels taken up by the droplet. As the droplets produced for the experiment were typically 25 pixels in radius, they only took up 2000 of the 2073600 pixels in a 1920 x 1080 image. If the camera had a lower focal length it could be positioned far closer to the droplet, allowing droplets to take up more than 0.1\% of the pixels of the image. A higher resolution camera would also increase the accuracy of boundary detection. \\
         
         With knowledge of the perimeter of the droplet, a bounding box could be placed around each droplet, pixels converted to mm, and Equation \ref{eq:radii} used to determine the droplet radius.
         
@@ -226,13 +230,28 @@ A user-friendly toolbox was developed in MATLAB to allow these steps to be autom
     \subsection{Determining Values}
 
     
-
-    
-
-
 \section{Results}
 
+    \subsection{Calibration}
+    As shown in Figure \ref{fig:calib:error}, the extrinsics of the camera were calculated to a sub-pixel accuracy of 0.41 pixels, indicating a high quality calibration which will produce errors of less than the precision of the droplet finding algorithm discussed later. Across the 20 calibration images, there was a mean error of X, with all images being calibrated to a standard deviation of Y. This indicates...\\
+        
+    
+    It was found that a 10x11, 0.20mm checkerboard gave the lowest error of 0.03mm. This is shown in Figure \ref{fig:calibsize}. 
+        
+        \begin{figure}[H]
+            \centering
+            \includegraphics{Figures/CameraCalib.eps}
+            \caption{Caption}
+            \label{fig:calibsize}
+        \end{figure}
+        
+        From here, it can clearly be seen that the algorithm works as intended (more words)
+    
 \section{Discussion}
+
+
+
+
 % -----------
 % REFERENCES
 % -----------
