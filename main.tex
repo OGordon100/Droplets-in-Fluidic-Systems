@@ -62,53 +62,40 @@
 
     \subsection{Slide \& Fluid Loop}
     
-        To interrogate liquids of interest, a clean, reliable environment had to be created. This was accomplished by first creating a plastic mould with a 2 mm tunnel inside. This was then filled with PDMS to make a sheet which was subsequently attached to a glass slide. A 1 mm port was also created on the top side of the slide, and subsequently used to inject the fluid of interest. Three capillary tubes were then attached to this port and both ends of the slide, before sealing all leaks with flowable silicon. This setup is demonstrated in Figure \ref{fig:control}. Because of the difficulties and long drying times involved with manufacturing perfectly sealed PDMS slides with smooth tunnels, we later changed to perspex instead of glass/PDMS, and carefully drilling the appropriate holes. This had the advantage of being quicker to produce, less fragile, and less prone to internal leaking. \\
+        To interrogate liquids of interest, a clean test environment had to be created. This was accomplished by first creating a plastic mould with a 2 mm diameter tunnel inside. This tunnel size was large enough to allow...  This was then filled with PDMS to make a sheet which was subsequently attached to a glass slide. A 1 mm port was also created on the top side of the slide, and subsequently used to inject the fluid of interest. This smaller diameter was chosen as it prevented droplets constantly flowing when only a single droplet was ever desired in the slide at any one time.\\
         
-        \begin{figure}[H]
-        \centering
-        \hspace*{2cm}\includegraphics[scale=0.9]{Figures/Control.eps}
-        \captionsetup{justification=centering}
-        \caption{Words.} 	
-        \label{fig:control}
-        \end{figure} 
+        Three capillary tubes were then attached these ports, before sealing all leaks with flowable silicon. This setup is demonstrated in Figure \ref{fig:control}. Because of the difficulties and long drying times involved with manufacturing perfectly sealed PDMS slides with smooth tunnels, we later changed to perspex instead of glass/PDMS, and carefully drilling the appropriate holes. This had the advantage of being quicker to produce, less fragile, and less prone to internal leaking. \\
+        
+            \begin{figure}[H]
+            \centering
+            \hspace*{2cm}\includegraphics[scale=0.9]{Figures/Control.eps}
+            \captionsetup{justification=centering}
+            \caption{Words.} 	
+            \label{fig:control}
+            \end{figure} 
     
         To move droplets through the slide, the capillary tubes were then connected to a fluid loop consisting of 3 mm (?) tubes. To transport the spherical droplets, mineral oil of a lower viscosity was used as a carrier medium. A microfluidics motor was used to transport the oil from a central reservoir and around the loop. To reduce stress on the capillary tubes of the slide, the motor was attached on the "in" side, so oil is not being pulled against the external tubes, potentially breaking them (?). A t-junction was also placed at the return side of the loop to allow for easy bleeding of air. After being interrogated in the slide, droplets were transported to the reservoir. Here, they could be easily removed by hand, as the droplets were of different density to the mineral oil, so would either sink or float. To prevent these droplets from returning into the flow system, the return and collection tubes were placed at different heights on opposite sides of the reservoir. This setup is demonstrated in Figure \ref{fig:basic}.
         
-        \begin{figure}[H]
-        \centering
-        \hspace*{2.0cm}\includegraphics[scale=0.8]{Figures/Fluid.eps}
-        \captionsetup{justification=centering}
-        \caption{Words.} 	
-        \label{fig:basic}
-        \end{figure} 
+            \begin{figure}[H]
+            \centering
+            \hspace*{2.0cm}\includegraphics[scale=0.8]{Figures/Fluid.eps}
+            \captionsetup{justification=centering}
+            \caption{Words.} 	
+            \label{fig:basic}
+            \end{figure} 
 
     \subsection{Motor \& Syringe Pump}
 
         To allow the speed of the fluid to programmatically controlled as part of the computer vision system described below, the motor had to be driven by a DAQ card. However, the card used lacked the circuitry to output sufficient current, making it unable to turn the motor at any voltage. Furthermore, the card had poor output resolution, making very fine control of fluid speed impossible. A current boosting circuit was therefore produced, and is shown in Figure \ref{fig:MotorCircuit}. Besides using an external power supply to increase output current to suitable levels, it maps the 0-4 V input rating of the motor to the full 0-10 V output of the DAQ, effectively increasing its sensitivity. Resistances were chosen both to provide the required output and provide good heat dissipation. Heat dissipation was further improved by attaching a heatsink to the transistor. The 12 $\Omega$ resistor was also replaced with 3 x 36 $\Omega$ resistors to reduce component stress. The motor was given protection by powering the circuit with a current limited power supply set at the maximum current rating of the motor. 
         
-        \begin{figure}[H]
-            \centering
-            \hspace*{-1.8cm}\includegraphics[scale=0.8]{Figures/MotorCircuit.eps}
-            \caption{Caption}
-            \label{fig:MotorCircuit}
-        \end{figure}
+            \begin{figure}[H]
+                \centering
+                \hspace*{-1.8cm}\includegraphics[scale=0.8]{Figures/MotorCircuit.eps}
+                \caption{Caption}
+                \label{fig:MotorCircuit}
+            \end{figure}
         
         To allow droplets of a consistent size of be created, a motorised syringe pump was set up, and code created to automatically interface over a COM port. To decrease the size of droplets being produced, the speed of the motor could be increased. However, droplets needed to be moved as slowly as possible to increase the time of data collection. Droplet size could therefore be made larger by increasing the speed at which the syringe pump was turned by writing code to interface with the pump through a serial port. A large syringe (name?) was chosen
-    
-    \subsection{Laser \& Photodiode}
-    
-    Because oscillations were could be expected to occur at frequencies higher than the 30 Hz (i.e. 30 FPS) the webcam could capture at, a photodiode circuit was created to capture oscillations. Because droplets could be assumed to have a different refractive index to that of the carrier oil, it followed that the presence of a droplet would cause laser light to be scattered differently. Further, as the shape of droplets would vary as the oscillated, they would cause light to scatter in proportion to their degree of oscillation. To observe this effect, a laser was set up as shown in Figure \ref{fig:control}, with the laser on one side of the slide and a photodiode on the other. Because droplets would be moving as they oscillated, the laser was focused on a wide area of the slide. However, because the laser was brightest about its focal point, the system would be more sensitive around this region than others. To improve the region of sensitivity, the solid angle of this bright region was increased by setting the laser up at a glancing angle of over 45$^{\circ}$ to the slide, instead of face on.\\
-    
-    To amplify the output of the photodiode, a circuit was set up.
-    
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.8]{Figures/PDCircuit.eps}
-        \caption{Caption}
-        \label{fig:my_label}
-    \end{figure}
-    
-    \subsection{Oscillating Droplets}
         
     \subsection{Computer Vision\label{sect_vision}}
         
@@ -119,51 +106,51 @@
             
             Several materials were included in the slide
     
-            \subsubsection{Calibration}
+        \subsubsection{Calibration}
 
-            To ensure that droplets were calculated accurately, the webcam had to be calibrated. 20 images of a 10 x 11, 0.20 mm checkerboard pattern were taken at different positions in similar positions to those used during our experiment, as demonstrated in Figure \ref{fig:calib:pos}. An algorithm implemented in MATLAB\cite{CameraCalib} was then used to calculate various extrinsic properties of the camera, such as the optical centre, distortions, and focal lengths in x and y. 
+            To ensure that droplets were calculated accurately, the webcam had to be calibrated. 20 images of a 10 x 11, 0.20 mm checkerboard pattern were taken at different positions in similar positions to those used during our experiment, as demonstrated in Figure \ref{fig:calib}. An algorithm implemented in MATLAB\cite{CameraCalibration} was then used to calculate various extrinsic properties of the camera, such as the optical centre, distortions, and focal lengths in x and y. 
             
-            \begin{figure}[H]
-                \centering
-                    \includegraphics[]{Figures/CameraExtrinsics.eps}
-                    \label{fig:calib:pos}
-                \caption{Figure }\label{fig:calib}
-            \end{figure}
-            
-            To calculate the size of an object and because a webcam has no depth perception, the checkerboard had to be placed in plane with the droplets. Because the slide was of a finite size, a limitation was placed on the size of the checkerboard. Larger checkers had a lower percentage error from imperfect focusing, yet less of them could be placed on a slide. To determine the optimum size for our purposes, we calibrated the camera with checkers between 1.50 and 5.00 mm in size. \\
+                \begin{figure}[H]
+                    \centering
+                        \includegraphics[]{Figures/CameraExtrinsics.eps}
+                    \caption{Figure }\label{fig:calib}
+                \end{figure}
+        
+            To calculate the size of an object and because a webcam has no depth perception, the checkerboard had to be placed in plane with the droplets. Because the slide was of a finite size, a limitation was placed on the size of the checkerboard. Larger checkers had a lower percentage error from imperfect focusing, yet less of them could be placed on a slide. To determine the optimum size for our purposes, we attempted to calibrate the camera with checkers between 1.50 and 5.00 mm in size. \\
             
             To determine the optimum checker size, photos containing the checkerboard and circles of radius 0.10 to 1.00 mm were taken. A simple circle finding algorithm was then used to find a bounding box around each circle. After correcting the bounding box for fish-eye in the lens, the height and width, $\Delta x$ and $\Delta y$ respectively, of the bounding box was converted from pixels to mm. The radius, $r$, of each circle was then computed with simple trigonometry:
             
-            \begin{equation}\label{eq:radii}
-                r = \sqrt{\Big(\frac{\Delta x}{2}\Big)^2 + \Big(\frac{\Delta y}{2}\Big)^2}
-            \end{equation}
+                \begin{equation}\label{eq:radii}
+                    r = \sqrt{\Big(\frac{\Delta x}{2}\Big)^2 + \Big(\frac{\Delta y}{2}\Big)^2}
+                \end{equation}
             
             \vspace{3pt} 
-        
-        \subsubsection{Observing}
-            To track droplets, a background photograph was first taken with oil flowing but no droplet present. A small 3 mm long window along the channel was then defined and continuously monitored. After each frame was captured, this window was subtracted from the corresponding background region, and multiplied by the arbitrarily selected log(6) to act as a gain (thereby increasing contrast). When a droplet was present in the window, this resulted in bright regions where the two images were very different. Once an arbitrary threshold of bright pixels was reached, the droplet was confirmed as being in the window. This algorithm is demonstrated in Figure \ref{fig:detector}. Although this logical test based on bright pixel number is sensitive to noise, it was chosen over an object finder as calculations had to be performed in under 1/30 of a second, as otherwise the droplet could pass the window and fail to be detected, causing the entire system to fail. This noise means that the carrier fluid must be single coloured and free of impurities. \\
             
-            \begin{figure}[H]
-                \centering
-                \begin{subfigure}[b]{0.3\textwidth}
-                    \includegraphics[width=\textwidth]{Figures/DropFinder/DropFinder1.eps}
-                    \caption{Background}
-                    \label{fig:detector:back}
-                \end{subfigure}
-                ~ 
-                \begin{subfigure}[b]{0.3\textwidth}
-                    \includegraphics[width=\textwidth]{Figures/DropFinder/DropFinder2.eps}
-                    \caption{Foreground}
-                    \label{fig:detector:fore}
-                \end{subfigure}
-                ~ 
-                \begin{subfigure}[b]{0.3\textwidth}
-                    \includegraphics[width=\textwidth]{Figures/DropFinder/DropFinder3.eps}
-                    \caption{Difference}
-                    \label{fig:detector:diff}
-                \end{subfigure}
-                \caption{Figure to demonstrate how droplets are detected after being created by a mechanical pump. A region of the webcam is defined, and a background image taken of this region (a). This region is continuously monitored, and every frame the region is looked at (b), with a comparison made. When enough bright pixels are observed (c), a droplet is considered to be present in the system.}\label{fig:detector}
-            \end{figure}
+        \subsubsection{Observing}
+        
+                To track droplets, a background photograph was first taken with oil flowing but no droplet present. A small 3 mm long window along the channel was then defined and continuously monitored. After each frame was captured, this window was subtracted from the corresponding background region, and multiplied by the arbitrarily selected log(6) to act as a gain (thereby increasing contrast). When a droplet was present in the window, this resulted in bright regions due to the two images being very different. Once an arbitrary threshold of bright pixels was reached, the droplet was confirmed as being in the window. These steps are demonstrated in Figure \ref{fig:detector}. Although this logical test based on bright pixel number is sensitive to noise, it was chosen over an object finder as calculations had to be performed in under 1/30 of a second, as otherwise the droplet could pass the window and fail to be detected, causing the entire system to fail. This noise means that the carrier fluid must be single coloured and free of impurities. \\
+            
+                    \begin{figure}[H]
+                        \centering
+                        \begin{subfigure}[b]{0.3\textwidth}
+                            \includegraphics[width=\textwidth]{Figures/DropFinder/DropFinder1.eps}
+                            \caption{Background}
+                            \label{fig:detector:back}
+                        \end{subfigure}
+                        ~ 
+                        \begin{subfigure}[b]{0.3\textwidth}
+                            \includegraphics[width=\textwidth]{Figures/DropFinder/DropFinder2.eps}
+                            \caption{Foreground}
+                            \label{fig:detector:fore}
+                        \end{subfigure}
+                        ~ 
+                        \begin{subfigure}[b]{0.3\textwidth}
+                            \includegraphics[width=\textwidth]{Figures/DropFinder/DropFinder3.eps}
+                            \caption{Difference}
+                            \label{fig:detector:diff}
+                        \end{subfigure}
+                        \caption{Figure to demonstrate how droplets are detected after being created by a mechanical pump. A region of the webcam is defined, and a background image taken of this region (a). This region is continuously monitored, and every frame the region is looked at (b), with a comparison made. When enough bright pixels are observed (c), a droplet is considered to be present in the system.}\label{fig:detector}
+                    \end{figure}
         
         \subsubsection{Determining Droplet Size\label{sect:size}}
         
@@ -171,47 +158,47 @@
             
             For our purposes, we begin by stopping the motor and capturing a new image. It was inadequate to use the image previously captured (seen in Figure \ref{fig:detector:fore}) as there was significant motion blur owing to the fact that the droplet was moving. After stopping the motor, the motor was given a short time to spin down. To reduce motion blur further, the system was thoroughly bled of air at all times. This is because air was the least dense medium present, and as it moved to the highest point in the system it pushed the oil and therefore the droplet.\\ 
             
-            After capturing this new image of the detection region, the outline of the droplet was then determined with a 5-stage algorithm. To reduce image complexity, the image was subtracted from the background as before. To bring out fine dark detail and reduce bright noise, a top-hat filter was then used to set all pixels with brightnesses below 10 to 0 (i.e. black), and all pixels with brightnesses above 20 to 255 (i.e. white). Of the remaining data, an automatic binarising algorithm was then applied to further bring out fine detail, and make a solid white horseshoe. This horseshoe was then turned into a convex hull and filled in. This shape could then be assumed to be a circle, and detected with a Circular Hough Transform based algorithm. Each stage of the algorithm is shown in Figure \ref{fig:size}.\\
+            After capturing this new image of the detection region, the outline of the droplet was then determined with a 5-stage algorithm. To reduce image complexity, the image was subtracted from the background as before. To bring out fine dark detail and reduce bright noise, a top-hat filter was then used to set all pixels with brightnesses below 10 to 0 (i.e. black), and all pixels with brightnesses above 20 to 255 (i.e. white). Of the remaining data, an automatic binarising algorithm was then applied to further bring out fine detail, and make a solid white horseshoe. This horseshoe was then turned into a convex hull and filled in. This shape could then be assumed to be a circle, and detected with a Circular Hough Transform based algorithm\cite{imfindcircles}. Each stage of the algorithm is shown in Figure \ref{fig:size}.\\
             
-            \begin{figure}[H]
-                \centering
-                \begin{subfigure}[b]{0.3\textwidth}
-                    \includegraphics[width=\textwidth]{Figures/SizeFinder/SizeFinder1.eps}
-                    \caption{Raw Image}
-                    \label{fig:size:1}
-                \end{subfigure}
-                ~ 
-                \begin{subfigure}[b]{0.3\textwidth}
-                    \includegraphics[width=\textwidth]{Figures/SizeFinder/SizeFinder2.eps}
-                    \caption{Background Subtraction}
-                    \label{fig:size:2}
-                \end{subfigure}
-                ~ 
-                \begin{subfigure}[b]{0.3\textwidth}
-                    \includegraphics[width=\textwidth]{Figures/SizeFinder/SizeFinder3.eps}
-                    \caption{Top Hat}
-                    \label{fig:size:3}
-                \end{subfigure}
-            
-                \begin{subfigure}[b]{0.3\textwidth}
-                    \includegraphics[width=\textwidth]{Figures/SizeFinder/SizeFinder4.eps}
-                    \caption{Binarise}
-                    \label{fig:size:4}
-                \end{subfigure}
-                ~ 
-                \begin{subfigure}[b]{0.3\textwidth}
-                    \includegraphics[width=\textwidth]{Figures/SizeFinder/SizeFinder5.eps}
-                    \caption{Convex Hull}
-                    \label{fig:size:5}
-                \end{subfigure}
-                ~  
-                \begin{subfigure}[b]{0.3\textwidth}
-                    \includegraphics[width=\textwidth]{Figures/SizeFinder/SizeFinder6.eps}
-                    \caption{Detected Circle}
-                    \label{fig:size:6}
-                \end{subfigure}
-                \caption{Figure }\label{fig:size}
-            \end{figure}
+                \begin{figure}[H]
+                    \centering
+                    \begin{subfigure}[b]{0.3\textwidth}
+                        \includegraphics[width=\textwidth]{Figures/SizeFinder/SizeFinder1.eps}
+                        \caption{Raw Image}
+                        \label{fig:size:1}
+                    \end{subfigure}
+                    ~ 
+                    \begin{subfigure}[b]{0.3\textwidth}
+                        \includegraphics[width=\textwidth]{Figures/SizeFinder/SizeFinder2.eps}
+                        \caption{Background Subtraction}
+                        \label{fig:size:2}
+                    \end{subfigure}
+                    ~ 
+                    \begin{subfigure}[b]{0.3\textwidth}
+                        \includegraphics[width=\textwidth]{Figures/SizeFinder/SizeFinder3.eps}
+                        \caption{Top Hat}
+                        \label{fig:size:3}
+                    \end{subfigure}
+                
+                    \begin{subfigure}[b]{0.3\textwidth}
+                        \includegraphics[width=\textwidth]{Figures/SizeFinder/SizeFinder4.eps}
+                        \caption{Binarise}
+                        \label{fig:size:4}
+                    \end{subfigure}
+                    ~ 
+                    \begin{subfigure}[b]{0.3\textwidth}
+                        \includegraphics[width=\textwidth]{Figures/SizeFinder/SizeFinder5.eps}
+                        \caption{Convex Hull}
+                        \label{fig:size:5}
+                    \end{subfigure}
+                    ~  
+                    \begin{subfigure}[b]{0.3\textwidth}
+                        \includegraphics[width=\textwidth]{Figures/SizeFinder/SizeFinder6.eps}
+                        \caption{Detected Circle}
+                        \label{fig:size:6}
+                    \end{subfigure}
+                    \caption{Figure }\label{fig:size}
+                \end{figure}
             
             There are a few drawbacks to this algorithm. For one, it is highly sensitive to noise, meaning that if the oil is cloudy then it will fail. The top-hat filter is also semi-manual, and must be tweaked for different droplet colours/transparencies. It also struggles with droplets with a radius below 0.3 mm. Finally, it also relies on our assumption that the droplets are perfectly spherical, which is not completely true.\\
             
@@ -222,35 +209,66 @@
             With knowledge of the perimeter of the droplet, a bounding box could be placed around each droplet, pixels converted to mm, and Equation \ref{eq:radii} used to determine the droplet radius.
             
             From this point, the motor could be re-engaged, and the photodiode probed.
-
+    
+    \subsection{Oscillating Droplets}
+    
+    \subsection{Laser \& Photodiode}
+    
+        Because oscillations were could be expected to occur at frequencies higher than the 30 Hz (i.e. 30 FPS) the webcam could capture at, a photodiode circuit was created to capture oscillations. (Couldn't get camera close enough?) Because droplets could be assumed to have a different refractive index to that of the carrier oil\cite{viscosity1,viscosity2}, it followed that the presence of a droplet would cause laser light to be scattered differently. Further, as the shape of droplets would vary as the oscillated, they would cause light to scatter in proportion to their degree of oscillation. To observe this effect, a laser was set up as shown in Figure \ref{fig:control}, with the laser on one side of the slide and a photodiode on the other. Because droplets would be moving as they oscillated, the laser was focused on a wide area of the slide. However, because the laser was brightest about its focal point, the system would be more sensitive around this region than others. To improve the region of sensitivity, the solid angle of this bright region was increased by setting the laser up at a glancing angle of over 45$^{\circ}$ to the slide, instead of face on.\\
+        
+        To amplify the output of the photodiode, a simple circuit was set up\cite{artofelectronics}. The variable resistor was used to act as a gain control, allowing the output voltage to be made as high as possible within the recording range of the DAQ card. The 200 pF capacitor was not originally included, but was later added to reduce noise. A larger capacitor reduces more noise, but makes the circuit less sensitive to small changes (i.e. oscillations).
+    
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.8]{Figures/PDCircuit.eps}
+            \caption{Caption}
+            \label{fig:my_label}
+     \end{figure}
+    
+    
+    
     \subsection{Running Experiments}
-    A user-friendly toolbox was developed in MATLAB to allow these steps to be automated.
+        Through creation of a user-friendly toolbox, experimenting could be done automatically with minimimum setup.
+        
+        \begin{figure}
+            \centering
+            \hspace*{-5.4cm}\includegraphics[scale=0.8]{Figures/FlowSetup.eps}
+            \caption{Caption}
+            \label{fig:setup:flow}
+        \end{figure}
+        
+        \begin{figure}
+            \centering
+            \hspace*{-1cm}\includegraphics[scale=0.8]{Figures/FlowLogic.eps}
+            \caption{Caption}
+            \label{fig:setup:logic}
+        \end{figure}
     
 \section{Results}
     
     \subsection{Motor}
     
-    The motor agrees with its rated values (cite).
+        The motor agrees with its rated values (cite).
     
     \subsection{Calibration}
-    As shown in Figure \ref{fig:calib:error}, the extrinsics of the camera were calculated to a sub-pixel accuracy of 0.41 pixels, indicating a high quality calibration which will produce errors of less than the precision of the droplet finding algorithm discussed later. Across the 20 calibration images, there was a mean error of X, with all images being calibrated to a standard deviation of Y. This indicates...\\
+     As shown in Figure \ref{fig:calib:error}, the extrinsics of the camera were calculated to a sub-pixel accuracy of 0.41 pixels, indicating a high quality calibration which will produce errors of less than the precision of the droplet finding algorithm discussed later. Across the 20 calibration images, there was a mean error of X, with all images being calibrated to a standard deviation of Y. This indicates...\\
         
     
     It was found that a 10x11, 0.20mm checkerboard gave the lowest error of 0.03mm. This is shown in Figure \ref{fig:calibsize}. 
         
-        \begin{figure}[H]
-            \centering
-            \includegraphics{Figures/CameraCalib.eps}
-            \caption{Caption}
-            \label{fig:calibsize}
-        \end{figure}
+            \begin{figure}[H]
+                \centering
+                \hspace*{-1cm}\includegraphics{Figures/CameraCalib.eps}
+                \caption{Caption}
+                \label{fig:calibsize}
+            \end{figure}
         
         From here, it can clearly be seen that the algorithm works as intended (more words)
 
-\subsection{Oscillating Droplets}
-    \subsubsection{Motor Control}
-    \subsubsection{Electric Field}
-    \subsubsection{Distortion}
+    \subsection{Oscillating Droplets}
+        \subsubsection{Motor Control}
+        \subsubsection{Electric Field}
+        \subsubsection{Distortion}
     
 \section{Discussion}
 
