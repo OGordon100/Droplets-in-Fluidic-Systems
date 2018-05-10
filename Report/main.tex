@@ -81,14 +81,37 @@ Although a great deal of research has been performed into determining the rheolo
 
 As such, we intend to investigate the other common droplet shape of spherical droplets. These are formed by levitating fluid away from a surface using methods such as magnetic\cite{temperton2014mechanical, levitate2}, electrostatic\cite{mugele2006microfluidic, wong1981dynamics}, aerodynamic\cite{benmore2017aerodynamic}, acoustic\cite{thesis, yarin1998acoustic}, and fluidic levitation. Fluidic levitation is achieved by placing a droplet of fluid within a suspension medium of different viscosity. Besides spherical droplets, sessile droplets can also be investigated in this fashion by placing them on a suspension slide, as recently demonstrated by Backholm et al\cite{backholm2017oscillating}. These authors also showed that\cite{backholm2017oscillating} by using fluidic levitation, it is possible to determine both the interfacial tension between the droplet and the surrounding liquid, and the rheological properties of the surrounding liquid.\\
 
+As the capillary length may not always be known, it is imperative that droplets are kept as small as possible as of Equation 1. However, it is possible to investigate larger spherical droplets by performing the experiment in low gravity; this was done in 1979\cite{holt1997surface} on Space Shuttle Columbia and resulted in similar findings to the other experiments discussed here. However, this is obviously impractical for our purposes.\\
+
 \subsection{Computer Vision}
 
 \section{Theory\label{sect:theory}}
 
-Need to take a laser + PD of a droplet by itself (basically, do what everybody else has done as a basic intro so we sound awesome)
+    Following on from prior work, we will be making the major assumption that our droplets will be perfectly spherical. Below the capillary length of the material $l_{cap}$, surface tension, $\gamma$, dominates over gravitational interactions, $g_{eff}$. This results in the lowest energy configuration of the droplet to be spherical. As such, it is important that any droplet investigated has radius, $R$, lower than its capillary length. \\
+    
+    Because the droplet has an equilibrium spherical shape, it will undergo shape oscillations when a small perturbation is applied\cite{oscillation}. If this pertubation is in the from of an impulse, the surface of the droplet vibrates at its resonant frequency. This occurs as an impulse drives the surface of the droplet at all frequencies (owing to the mathematics of Fourier transforming a delta function). Vibrations not equal to the resonant frequency are damped, leaving only the vibrations at the resonant frequency of the droplet with a non-zero amplitude. For optimal results, it has been shown that any applied impulse must be long enough to give sufficient time to perturb the drop, but short enough to still be an impulse and not drive the droplet at a particular frequency\cite{temperton2014mechanical}. Furthermore, the amplitude of oscillations must be kept to under 0.1$R$, following work from Becker et al. who found that above this limit oscillations become non-linear, causing the simple equations used here to fail\cite{becker1991experimental}.\\
+    
+    These oscillations can be readily observed by placing a water droplet on a hydrophobic plate and gently blowing on it. A laser and photodiode (discussed further in Section X) can be used to detect this, giving a time dependant signal such as the one shown in Figure X. The frequencies that remain correspond to different modes, $n$, of oscillation. The $n=1$ node corresponds to oscillations of the droplet's centre of mass\textsuperscript{\cite{miller}}, whilst the $n\geq2$ nodes correspond to the surface oscillations which are of interest here. The corresponding frequency, $f_n$, and full-width-half-maxima, $\Delta f_n$, can then be calculated by fourier transforming the oscillatory signal. An example signal is shown in Figure Y. \\
+    
+    From here, it is possible to calculate the surface tension, $\gamma$, and viscosity, $\eta$, of the fluid using the equations
+ 
+    \begin{equation} 
+    \label{eq:SurfaceTension}
+    \gamma = \frac{4\rho R^{2}}{\pi n^{2}}(\Delta f^{2} + f^{2}),
+    \end{equation}
+    
+    \begin{equation} 
+    \label{eq:Viscosity}
+    \eta = \frac{\pi \rho \Delta f R^{2}}{n^{2}},
+    \end{equation}
 
-
-
+    where $\rho$ is the density of the droplet. To determine $R$, checkerboards of known dimensions can be used to map the pixels on a screen to real world space. Because cameras have no depth-perception, this requires the assumption that the object of interest is in the same plane as the checkerboard. Once the height and width of a spherical droplet, $R_x$ and $R_y$ respectively, has been found in an image containing a checkerboard, $R$ can be calculated with simple trigonometry:
+            
+            \begin{equation}\label{eq:radii}
+                r = \sqrt{\Big(\frac{R_x}{2}\Big)^2 + \Big(\frac{R_y}{2}\Big)^2} .
+            \end{equation}
+    
+    However, Equations \ref{eq:SurfaceTension} and \ref{eq:Viscosity} are only valid for simple Newtonian droplets such as water and glyercol. For viscoelastic droplets such as... , there is to date yet to be a complete analysis of droplets without prior knowledge of $\gamma$.
 % ----------------------
 % Equipment
 % ----------------------
@@ -129,36 +152,39 @@ Need to take a laser + PD of a droplet by itself (basically, do what everybody e
                 \label{fig:MotorCircuit}
             \end{figure}
         
-        To allow droplets of a consistent size of be created, a motorised syringe pump was set up, and code created to automatically interface over a COM port. To decrease the size of droplets being produced, the speed of the motor could be increased. However, droplets needed to be moved as slowly as possible to increase the time of data collection. Droplet size could therefore be made larger by increasing the speed at which the syringe pump was turned by writing code to interface with the pump through a serial port. A large syringe (name?) was chosen
+        To allow droplets of a consistent size of be created, a motorised syringe pump was set up, and code created to automatically interface over a COM port. To decrease the size of droplets being produced, the speed of the motor could be increased. However, droplets needed to be moved as slowly as possible to increase the time of data collection. Droplet size could therefore be made larger by increasing the speed at which the syringe pump was turned by writing code to interface with the pump through a serial port. A large syringe (name?) was chosen.
+        
+        
+    \subsection{Determining Density}
+    
+        For more manual experimentation, $\rho$ is calculated by determining $R$ of a spherical droplet (and therefore its volume). The mass is then measured by absorbing a droplet onto a paper towel and comparing to the mass without the droplet\cite{hill}. This method is both destructive and erroneous by up to 10\%\cite{harrold2016optovibrometry} due to mass loss during the experiment. It is also not viable for our purposes, as our droplets are suspended in fluid. 
+        By holding our fluid of interest in a syringe, we instead determine mass by comparing the mass of an empty and filled syringe. The volume can be easily determined by reading from the scale of the syringe.\\
+    
+        This method has multiple advantages. For one, the method is non-destructive, making it more practical for many biological investigations such as protein crystallisation  studies\textsuperscript{\cite{zhu}} and cell culture bioreactors\textsuperscript{\cite{konry}}, or any time where an expensive/rare liquid needs to be recovered\cite{backholm}. Further, as the system is self contained and has all measurements taken within seconds, no mass can be lost to evaporation during the experiment. This has been shown to introduce errors to density as high as 10\%. Further, averaging down from larger volumes results in a lower percentage error per droplet, improving accuracy.
         
     \subsection{Computer Vision\label{sect_vision}}
         
         \subsubsection{Acquiring Data}
             In order to allow droplets to be analysed in real time, a computer vision control system was developed. A Logitech C920 camera was chosen for its high image quality, high resolution, and wide field of view. \\
             
-            Because droplets are not static, strict requirements are placed on the efficiency of calculations. Furthermore, as MATLAB is an interpreted language and lacks hardware acceleration, webcam acquisition operates at very low framerates, making tracking moving droplets in real time difficult. This was overcome by modifying Hebicam\cite{HebiCam}, which was originally created for streaming CCTV footage, and is a MATLAB wrapper for the more efficient openCV. After adapting this package for use with USB webcams, 1080p video could be acquired at 30FPS with processor overhead to perform calculations, as opposed to 6 with none. Furthermore, data was acquired in grayscale (as opposed to RGB), further increasing capture efficiency and reducing the size of stored data. 
+            Because droplets are not static, strict requirements are placed on the efficiency of calculations. Furthermore, as MATLAB is an interpreted language and lacks hardware acceleration, webcam acquisition operates at very low framerates, making tracking moving droplets in real time difficult. This was overcome by modifying Hebicam\cite{HebiCam}, which was originally created for streaming CCTV footage, and is a MATLAB wrapper for the more efficient openCV. After adapting this package for use with USB webcams, 1080p video could be acquired at 30FPS with spare processor overhead to perform calculations, as opposed to 6 with none. Furthermore, data was acquired in grayscale (as opposed to RGB), further increasing capture efficiency and reducing the size of stored data. 
             
-            Several materials were included in the slide
     
         \subsubsection{Calibration}
 
-            To ensure that droplets were calculated accurately, the webcam had to be calibrated. 20 images of a 10 x 11, 0.20 mm checkerboard pattern were taken at different positions in similar positions to those used during our experiment, as demonstrated in Figure \ref{fig:calib}. An algorithm implemented in MATLAB\cite{CameraCalibration} was then used to calculate various extrinsic properties of the camera, such as the optical centre, distortions, and focal lengths in x and y. 
+            To ensure that droplets were calculated accurately, we applied checkerboard calibration. 20 images of a 10 x 11, 0.20 mm checkerboard pattern were taken at different positions in similar positions to those used during our experiment. The positions of the checkerboard in the calibration screenshots as determined by the algorithm are shown in Figure \ref{fig:calib}. An algorithm implemented in MATLAB\cite{CameraCalibration} was then used to calculate various extrinsic properties of the camera, such as the optical centre, distortions, and focal lengths in x and y. 
             
                 \begin{figure}[H]
-                    \centering
-                        \includegraphics[]{Figures/CameraExtrinsics.eps}
+                    \centering       \includegraphics{Figures/CameraExtrinsics.eps}
                     \caption{Figure }\label{fig:calib}
                 \end{figure}
         
-            To calculate the size of an object and because a webcam has no depth perception, the checkerboard had to be placed in plane with the droplets. Because the slide was of a finite size, a limitation was placed on the size of the checkerboard. Larger checkers had a lower percentage error from imperfect focusing, yet less of them could be placed on a slide. To determine the optimum size for our purposes, we attempted to calibrate the camera with checkers between 1.50 and 5.00 mm in size. \\
+            To calculate the size of an object and because a webcam has no depth perception, the checkerboard had to be placed in plane with the droplets. Because the slide was of a finite size, a limitation was placed on the size of the checkerboard. Larger checkers had a lower percentage error from imperfect focusing, yet less of them could be placed on a slide. \\
             
-            To determine the optimum checker size, photos containing the checkerboard and circles of radius 0.10 to 1.00 mm were taken. A simple circle finding algorithm was then used to find a bounding box around each circle. After correcting the bounding box for fish-eye in the lens, the height and width, $\Delta x$ and $\Delta y$ respectively, of the bounding box was converted from pixels to mm. The radius, $r$, of each circle was then computed with simple trigonometry:
+            There was an added complication to this process in that the PDMA used to create the experiment area was not perfectly flat. Because the algorithms work on the assumptions that checkerboard is flat and the droplet is in plane with the checkerboard, the pattern was instead printed on a long piece of paper, carefully folded and tensioned to the back of the slide. However, this resulted in a small 1mm disparity in depth between the droplet and the checkerboard, resulting in a small error. Using simple trigonometry to measure the distance to objects, this error was estimated to result in a 0.05 mm underestimation of all values of $R$, and as such was added to all calculated values of $R$.   
             
-                \begin{equation}\label{eq:radii}
-                    r = \sqrt{\Big(\frac{\Delta x}{2}\Big)^2 + \Big(\frac{\Delta y}{2}\Big)^2}
-                \end{equation}
-            
-            \vspace{3pt} 
+            To determine the optimum checkerboard size for our purposes, we calibrated the camera with checkers between 1.50 and 5.00 mm in size and attempted to determine the size of circles of radius 0.10 to 1.00 mm, after accounting for the 0.05 mm offset. A bounding box was drawn around each circle with a simple circle finding algorithm. After correcting the bounding box for fish-eye in the lens, the height and width, 
+
             
         \subsubsection{Observing}
         
@@ -310,7 +336,7 @@ Need to take a laser + PD of a droplet by itself (basically, do what everybody e
 
 was written to automatically interface with the pump over a COM port. This also has a significant delay, reducing the throughput of droplets.\\
 
-
+As we assume that the droplet remains at constant volume, only liquids can be explored as they are incompressible.
 % -----------
 % REFERENCES
 % -----------
