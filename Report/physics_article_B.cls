@@ -35,7 +35,7 @@
 \usepackage{tikz}
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
     \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
-    
+\setlength{\parskip}{6pt}    
 \setlength\parindent{0pt}
 \setlength{\hoffset}{-1.9mm}
 \setlength{\voffset}{-0.4mm}
@@ -49,7 +49,7 @@
 \setlength{\footskip}{10mm}
 \usepackage{natbib}
 \setlength{\bibsep}{18pt}
-
+\hbadness = 1500
 \let\endchangemargin=\endlist 
 
 \raggedbottom
