@@ -50,6 +50,7 @@
 \setlength{\bibsep}{18pt}
 \hbadness = 1500
 \let\endchangemargin=\endlist 
+\usepackage[justification=centering]{caption}
 
 \raggedbottom
 
