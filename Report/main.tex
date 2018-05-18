@@ -100,7 +100,7 @@
                     \caption{Fourier Transform}
                     \label{fig:temperton:PD}
                 \end{subfigure}
-            \caption{Figure to demonstrate (a) the time dependant signal produced when oscillating a droplet of water with an impulse, and (b) its resulting fourier transform. The resonant vibrations on the surface of the droplet can be seen in (a) as the initial, rapidly oscillating components of the signal. These correspond to multiple nodes, $n$, of oscillation in (b). The frequency, $f$, and full-width-half-maxima, $\Delta f$, can then be used to determine the rheological properties of the droplet. }\label{fig:temperton}
+            \caption{Figure to demonstrate (a) the time dependant signal produced when oscillating a droplet of water with an impulse, and (b) its resulting fourier transform. The resonant vibrations on the surface of the droplet can be seen in (a) as the initial, rapidly oscillating components of the signal. These correspond to multiple nodes, $n$, of oscillation in (b). The frequency, $f$, and full-width-half-maxima, $\Delta f$, can then be used to determine the rheological properties of the droplet. Adapted from Temperton et. al.\cite{tempertonphd}}\label{fig:temperton}
         \end{figure}
 
     The surface tension, $\gamma$, and viscosity, $\eta$, of the fluid can then be calculated using the equations,
@@ -270,7 +270,7 @@
                         \caption{Detected Circle}
                         \label{fig:size:6}
                     \end{subfigure}
-                    \caption{Figure }\label{fig:size}
+                    \caption{Figure to demonstrate the method in which a bounding box could be drawn around a droplet to determine its size. After photographing the droplet (a), the photo could be subtracted from an image taken just before the droplet was present (b). A top hat filter was then applied to this droplet to remove noise (c), before thresholding to extract fine detail (d). The largest remaining horseshoe-shape could then be turned into a solid shape (e). As the droplet was assumed to be spherical, the bounding box of the droplet could then be found with a simple circular Hough transform (f) }\label{fig:size}
                 \end{figure}
             
             After correcting this bounding box for fish-eye in the lens, the height and width, With knowledge of the perimeter of the droplet, a bounding box could be placed around each droplet, pixels converted to mm, and Equation \ref{eq:radii} used to determine the droplet radius.
