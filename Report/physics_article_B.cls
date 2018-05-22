@@ -37,12 +37,12 @@
     \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
 \setlength\parindent{0pt}
 \setlength{\hoffset}{-1.9mm}
-\setlength{\voffset}{-0.4mm}
+\setlength{\voffset}{-3.4mm}
 \setlength{\oddsidemargin}{5mm}
 \setlength{\topmargin}{5mm}
 \setlength{\headheight}{5mm}
 \setlength{\headsep}{5mm}
-\setlength{\textheight}{232mm}
+\setlength{\textheight}{236mm}
 \setlength{\textwidth}{160mm}
 \setlength{\marginparsep}{10mm}
 \setlength{\footskip}{10mm}
