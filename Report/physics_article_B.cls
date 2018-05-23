@@ -31,6 +31,7 @@
 \usepackage{adjustbox}
 \usepackage[linesnumbered,ruled]{algorithm2e}
 \usepackage{psfrag}
+%\usepackage{microtype}
 \DeclareMathOperator{\Tr}{Tr}
 \usepackage{tikz}
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
@@ -50,7 +51,7 @@
 \setlength{\bibsep}{18pt}
 \hbadness = 1500
 \let\endchangemargin=\endlist 
-\usepackage[justification=centering]{caption}
+%\usepackage[justification=full]{caption}
 
 \raggedbottom
 
