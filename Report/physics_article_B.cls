@@ -31,19 +31,19 @@
 \usepackage{adjustbox}
 \usepackage[linesnumbered,ruled]{algorithm2e}
 \usepackage{psfrag}
-%\usepackage{microtype}
+\usepackage{microtype}
 \DeclareMathOperator{\Tr}{Tr}
 \usepackage{tikz}
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
     \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
 \setlength\parindent{0pt}
-\setlength{\hoffset}{-1.9mm}
-\setlength{\voffset}{-3.4mm}
+\setlength{\hoffset}{-2.0mm}
+\setlength{\voffset}{-4.5mm}
 \setlength{\oddsidemargin}{5mm}
-\setlength{\topmargin}{5mm}
-\setlength{\headheight}{5mm}
+\setlength{\topmargin}{3.5mm}
+\setlength{\headheight}{4.8mm}
 \setlength{\headsep}{5mm}
-\setlength{\textheight}{236mm}
+\setlength{\textheight}{245mm}
 \setlength{\textwidth}{160mm}
 \setlength{\marginparsep}{10mm}
 \setlength{\footskip}{10mm}
