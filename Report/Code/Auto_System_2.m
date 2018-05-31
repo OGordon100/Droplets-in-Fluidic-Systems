@@ -503,8 +503,3 @@ FPS = 1./nanmean(TicTocAll);
 % Clear camera & DAQ
 clear CameraStream
 DAQ.outputSingleScan(0);
-
-% Conclude my magnum opus
-%load handel;
-%player = audioplayer(y, 1.2.*Fs);
-%play(player)
